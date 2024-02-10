@@ -11,31 +11,26 @@ public class Main {
             System.out.println(weekdays[i]);
         }
         System.out.println(" \nBusiness days shuffled");
-        int[] randomizer = new int[weekdays.length];
-        int[] count = {1,2,3,4,5};
+
+        String[] weekdaysTemp = weekdays;
         //problem lies in assigning new values to it every single time. need to prevent repeats. how to..? maybe make the array already full of numbers and take away them after setting one to it
-        for(int i = 0; i < randomizer.length; i++){
-            int swap = (int)(Math.random() * randomizer.length);
-            //goal: prevent repeats in count
-            randomizer[i] = (int)(Math.random() * randomizer.length);
-        }
-        for(int i = 0; i < randomizer.length; i++){
-            System.out.println(randomizer[i]);
-        }
-
-
-//        for(int i = 0; i < weekdays.length; i++){
-//            int swap = (int)(Math.random() * weekdays.length);
-//            while(i == swap) {
-//                swap = (int)(Math.random() * weekdays.length);
-//            }
-//            System.out.println("Swapped " + weekdays[swap] + " and " + weekdays[i]);
-//            weekdays[i] = weekdays[swap];
-//            weekdays[swap] = weekdays[i];
-//
-//        }
         for(int i = 0; i < weekdays.length; i++){
-            System.out.println(weekdays[i]);
+            //randomNum is a number
+            int randomNum = (int)(Math.random()* weekdaysTemp.length);
+            String randomDay = weekdaysTemp[randomNum];
+            while (randomDay == null){
+                randomNum = (int)(Math.random()* weekdaysTemp.length);
+                randomDay = weekdaysTemp[randomNum];
+                System.out.println("got null");
+            }
+            //remove randomDay from the temporary weekdays cache
+            weekdaysTemp[randomNum] = null;
+            //set the weekday of the current iteration to the randomly selected day
+            weekdays[i] = randomDay;
+        }
+
+        for (String weekday : weekdays) {
+            System.out.println(weekday);
         }
 
     }
